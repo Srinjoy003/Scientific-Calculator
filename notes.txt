@@ -1,0 +1,19 @@
+change ac to ce
+convertion to e
+organise factorial or log part of evaluate function
+fix CE
+
+for operators:
+    change func, operatorlist ==> evaluationjs
+    numberOperator = number * operator
+    
+bar: #bdc1c6     "rgb(189,193,198)"
+func: #5f6368    "rgb(95,99,104)"
+number: #3c4043  "rgb(60, 64, 67)"
+text: "rgb(232,234,237)"
+
+light mode:
+num: "rgb(241,243,244)"
+
+
+change button colours to match new background
