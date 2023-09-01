@@ -240,7 +240,6 @@ function main(e) {
     else if (btnStr == "xʸ")
         outputStr += "^";
 
-    else if (btnStr == )
 
     else if (btnStr == "(") {
         bracketCount++;
