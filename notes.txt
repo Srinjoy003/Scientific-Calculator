@@ -31,3 +31,10 @@ insert([H|L], E, I, R) :- I = 0,
 insert([H|L], E, I, R) :- I is I-1,
                           insert(L, E, I, R1),
                           R is [H|R1].
+
+
+#9aa0a6 -> "rgb(154,160,166)" -> darkmode
+#70757a -> "rgb(112,117,122)" -> lightmode
+
+//make functions for exponential operators
+//9E = 9

@@ -1,5 +1,5 @@
 {
-  "type" : "module",
+  "type": "module",
   "name": "calculator",
   "version": "1.0.0",
   "description": "",
@@ -8,6 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
-  
+  "license": "ISC",
+  "dependencies": {
+    "superscript-text": "^1.0.0"
+  }
 }

@@ -5,7 +5,21 @@ let outputBar = document.getElementsByTagName("input")[0];
 let buttonList = Array.from(buttonObj).filter(button => !button.classList.contains("view"));
 let deleteBtn = document.getElementById("del");
 let checkBox = document.getElementById("checkbox");
+let degreeBtn = document.getElementsByClassName("deg")[0];
+let radianBtn = document.getElementsByClassName("rad")[0];
+let prevAnsTag = document.getElementsByClassName("prev-answer")[0]
+
+let darkAngleText = "rgb(154,160,166)";
+let lightAngleText = "rgb(112,117,122)";
+let dark_text = "rgb(232,234,237)";
+let light_text = "rgb(32,33,36)";
+
+
+
 let bracketCount = 0;
+let degree = 0;
+let answerToggle = 0;
+let prevAns = "0";
 
 
 function BasicOperations(operationList, outputStr, btnStr) {
@@ -27,32 +41,34 @@ function BasicOperations(operationList, outputStr, btnStr) {
 
 
 function Numbers(outputStr, btnStr) {
-    let outputSplit = outputStr.split(" ");
-    let splitLen = outputSplit.length;
-    let len = outputStr.length;
-    let operations = ["!", ")", "π", "e", "%"];
+    if(btnStr != "Deg" && btnStr != "Rad"){
+        let outputSplit = outputStr.split(" ");
+        let splitLen = outputSplit.length;
+        let len = outputStr.length;
+        let operations = ["!", ")", "π", "e", "%"];
 
 
-    if (outputStr == "" || outputStr == "0")
-        outputStr = btnStr;
+        if (outputStr == "" || outputStr == "0")
+            outputStr = btnStr;
 
-    else if (outputStr[len - 1] == 0 && parseInt(outputSplit[splitLen - 1]) == 0) {
-        outputStr = outputSplit.join(" ") + btnStr;
+        else if (outputStr[len - 1] == 0 && parseInt(outputSplit[splitLen - 1]) == 0) {
+            outputStr = outputSplit.join(" ") + btnStr;
+        }
+
+        else if (operations.includes(outputStr[len-1])) {
+            outputStr +=  " × " + btnStr;
+
+        }
+        else
+            outputStr += btnStr;
     }
-
-    else if (operations.includes(outputStr[len-1])) {
-        outputStr +=  " × " + btnStr;
-
-    }
-    else
-        outputStr += btnStr;
 
     return outputStr
 }
 
 
 function Delete(outputStr) {
-    let functions = ["log(", "sin(", "cos(", "tan(", "arcsin(", "arccos(", "arctan("]
+    let functions = ["log(", "sin(", "cos(", "tan(", "arcsin(", "arccos(", "arctan(", "Ans"]
 
 
     if (outputStr[outputStr.length-1] == '(')
@@ -66,6 +82,9 @@ function Delete(outputStr) {
 
     else if (functions.includes(outputStr.slice(outputStr.length-4, outputStr.length)))
         outputStr = outputStr.slice(0, outputStr.length - 4);
+
+    else if (functions.includes(outputStr.slice(outputStr.length-3, outputStr.length)))
+        outputStr = outputStr.slice(0, outputStr.length - 3);
 
     else{
         outputStr = outputStr.trim();
@@ -106,6 +125,35 @@ function FuncInput(outputStr, btnStr) {
     
     bracketCount++;
     return outputStr;
+}
+
+function RadianColours(){
+    degree = 0;
+
+    if(checkBox.checked){
+        degreeBtn.style.color = darkAngleText ;
+        radianBtn.style.color = dark_text ;
+    }
+
+    else{
+        degreeBtn.style.color = lightAngleText;
+        radianBtn.style.color = light_text ;
+    }
+}
+
+
+function DegreeColours(){
+    degree = 1;
+
+    if(checkBox.checked){
+        radianBtn.style.color = darkAngleText ;
+        degreeBtn.style.color = dark_text ;
+    }
+
+    else{
+        radianBtn.style.color = lightAngleText;
+        degreeBtn.style.color = light_text ;
+    }
 }
 
 
@@ -152,6 +200,7 @@ function OutputReplacement(outputStr){
     let pi = Math.PI.toString();
     let e = Math.E.toString();
     const regex = /(\d+)!/g;
+    let len = outputStr.length;
 
 
     for (let num of numList){ 
@@ -160,6 +209,9 @@ function OutputReplacement(outputStr){
 
     }
 
+    if(outputStr[len-1] == "E")
+        outputStr = outputStr.slice(0,len-1);
+
     outputStr = outputStr.replace("%", " / 100");
     outputStr = outputStr.replace("÷", "/");
     outputStr = outputStr.replace("×", "*");
@@ -167,6 +219,10 @@ function OutputReplacement(outputStr){
     outputStr = outputStr.replace("e", e);
     outputStr = outputStr.replace(regex, 'fac($1)');
     outputStr = outputStr.replace("√", "sqrt");
+    outputStr = outputStr.replace("Ans", prevAns);
+    outputStr = outputStr.replace("E", " * 10^");
+
+    
 
 
     return outputStr;
@@ -174,9 +230,47 @@ function OutputReplacement(outputStr){
 }
 
 
+function AnswerInput(outputStr){
+    let errorList = ["Error", "NaN", "-Infinity", "Infinity", ""]
+    const digitPattern = /[0-9]/;
+    let len = outputStr.length;
+
+
+    if(errorList.includes(outputStr) || answerToggle == 1){
+        answerToggle = 0;
+        outputStr = "Ans";
+        return outputStr
+    }
+    else if(digitPattern.test(outputStr[len-1]))
+        outputStr += " Ans"
+    else 
+        outputStr += "Ans";
+
+    prevAnsTag.innerHTML = "Ans = " + prevAns;
+    
+
+    return outputStr;
+
+}
+
+function ExpInput(outputStr){
+    const digitPattern = /[1-9]/;
+    let len = outputStr.length;
+
+    if(digitPattern.test(outputStr[len-1]))
+        outputStr += "E";
+
+    return outputStr;
+    
+}
 
 function Calculate(outputStr) {
+    answerToggle = 1;
 
+    if (outputStr == "")
+        return 0;
+
+    prevAnsTag.innerHTML = outputStr + " =";
 
     outputStr = OutputReplacement(outputStr);
 
@@ -186,7 +280,7 @@ function Calculate(outputStr) {
     }
 
     try {
-        outputStr = Evaluate(outputStr);
+        outputStr = Evaluate(outputStr, degree);
     }
     catch {
         outputStr = "Error";
@@ -194,6 +288,8 @@ function Calculate(outputStr) {
 
     if (outputStr == undefined)
         outputStr = "Error";
+    
+    prevAns = outputStr;
 
     return outputStr;
 }
@@ -203,49 +299,52 @@ function Calculate(outputStr) {
 function main(e) {
 
     let btnStr = e.target.innerHTML;
-
     let outputStr = outputBar.value;
+    let len = outputStr.length;
+
 
     let operations = ["+", "-", "×", "÷"];
     let functions = ["log", "sin", "cos", "tan","sin⁻¹", "cos⁻¹", "tan⁻¹", "√"];
+    let errorList = ["Error", "NaN", "-Infinity", "Infinity", ""]
+    const digitPattern = /[0-9]/;
+    
 
+    if (!errorList.includes(outputStr) && answerToggle == 1 && btnStr != "Ans"){
+        answerToggle = 0;
 
-    if (outputStr == "Error")
+        if(digitPattern.test(btnStr) || functions.includes(btnStr) || btnStr == "Ans"){
+            prevAnsTag.innerHTML = "Ans = " + outputStr;
+            outputStr = "";
+        }
+    }
+        
+    if (errorList.includes(outputStr))
         outputStr = "";
 
     if (btnStr == "CE")
         outputStr = Delete(outputStr);
 
     else if (btnStr == "AC"){
-        outputStr = ""
         deleteBtn.innerHTML = "CE";
+        outputStr = ""
     }
+
+    else if (btnStr == "EXP"){
+        outputStr = ExpInput(outputStr);
+    }
+
+
 
     else if (btnStr == "Inv"){
         InverseFunctions(e);
         
     }
-    else if (operations.includes(btnStr))
-        outputStr = BasicOperations(operations, outputStr, btnStr);
+   
 
     else if (btnStr == "="){
         deleteBtn.innerHTML = "AC";
         outputStr = Calculate(outputStr);
     }
-
-    else if (btnStr == "x!" || btnStr == "%")
-        outputStr = SingleOperatorInput(operations, outputStr, btnStr);
-
-    else if (functions.includes(btnStr))
-        outputStr = FuncInput(outputStr, btnStr);
-
-    else if (btnStr == "xʸ")
-        outputStr += "^";
-    
-    else if(btnStr == "10ˣ"|| btnStr == "eˣ")
-        outputStr += btnStr.substring(0, btnStr.length - 1) + "^";
-
-
 
     else if (btnStr == "(") {
         bracketCount++;
@@ -261,9 +360,45 @@ function main(e) {
         }
     }
 
+    else if(btnStr == 'Deg' && degree == 0)
+       DegreeColours();
+        
+    else if (operations.includes(btnStr))
+       outputStr = BasicOperations(operations, outputStr, btnStr);
+    
+    else if(btnStr == 'Rad' && degree == 1)
+        RadianColours();
 
-    else
-        outputStr = Numbers(outputStr, btnStr);
+    else if (btnStr == "x!" || btnStr == "%")
+        outputStr = SingleOperatorInput(operations, outputStr, btnStr);
+
+
+    else if (btnStr == "Ans")
+        outputStr = AnswerInput(outputStr);
+
+    else if (outputStr[len-1] != "E"){
+    
+        if (btnStr == "Ans")
+            outputStr = AnswerInput(outputStr);
+
+        else if (functions.includes(btnStr))
+            outputStr = FuncInput(outputStr, btnStr);
+
+        else if (btnStr == "xʸ")
+            outputStr += "0^";
+        
+        
+        else if(btnStr == "10ˣ"|| btnStr == "eˣ")
+            outputStr += btnStr.substring(0, btnStr.length - 1) + "^";
+
+
+        else
+            outputStr = Numbers(outputStr, btnStr);
+    }
+
+    if (deleteBtn.innerHTML == "AC" && btnStr != "=")
+        deleteBtn.innerHTML = "CE";
+
 
     outputBar.value = outputStr;
 }
@@ -284,24 +419,21 @@ let heading = Array.from(document.getElementsByClassName("heading"))[0];
 
 let light_background = "rgb(255,255,255)";
 let light_num = "rgb(241,243,244)";
-let light_text = "rgb(32,33,36)";
 let light_op = "rgb(218,220,224)";
 let dark_background = "rgb(32,33,36)";
 let dark_op = "rgb(95,99,104)"
 let dark_num = "rgb(60, 64, 67)";
-let dark_text = "rgb(232,234,237)";
 let black = "rgb(0,0,0)";
-
-let light_background2 = "rgb(215,222,234)"
-let light_num2 = "rgb(234,227,215)";
-let dark_border = "rgb(225, 218, 218)"
+let dark_border = "rgb(225, 218, 218)";
+let dark_prev_text = "rgb(150,155,161)";
+let light_prev_text = "rgb(112,117,122)";
 
 
 
 
 function LightDarkMode(e){
 
-    if(e.target.checked){
+    if(e.target.checked){ //darkmode
        
         document.body.style.backgroundColor = dark_background;
         heading.style.color = light_num;
@@ -310,6 +442,7 @@ function LightDarkMode(e){
         outputBar.style.color = dark_text;
         outputBar.style.borderColor = light_background;
 
+        prevAnsTag.style.color = dark_prev_text; 
 
 
         numberList.forEach((btn) => {
@@ -323,9 +456,17 @@ function LightDarkMode(e){
             btn.style.color = dark_text;
         })
 
+        if (degree == 0){
+            degreeBtn.style.color = darkAngleText;
+            radianBtn.style.color = dark_text ;
+        }
+        else{
+            radianBtn.style.color = darkAngleText;
+            degreeBtn.style.color = dark_text ;
+        }
     }
 
-    else{
+    else{ //lightmode
         
         document.body.style.backgroundColor = light_background;
         heading.style.color = dark_num;
@@ -334,7 +475,7 @@ function LightDarkMode(e){
         outputBar.style.color = black;
         outputBar.style.borderColor = dark_border;
 
-
+        prevAnsTag.style.color = light_prev_text; 
 
 
 
@@ -348,6 +489,17 @@ function LightDarkMode(e){
             btn.style.backgroundColor = light_op;
             btn.style.color = light_text;
         })
+
+
+        if (degree == 0){
+            degreeBtn.style.color = lightAngleText;
+            radianBtn.style.color = light_text ;
+        }
+        else{
+            radianBtn.style.color = lightAngleText;
+            degreeBtn.style.color = light_text ;
+        }
+        
 
 
     }

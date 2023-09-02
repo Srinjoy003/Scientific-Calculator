@@ -85,7 +85,6 @@ function infixToPostfix(infix) {
             stack.push(infix[i]);
         }
 
-        console.log(stack);
 
 
     }
@@ -101,6 +100,7 @@ function infixToPostfix(infix) {
     return postfix;
 }
 
+//--------------------------------------------------------------------------------------------------
 
 function Factorial(n) {
     if (n < 0) {
@@ -115,14 +115,50 @@ function Factorial(n) {
 }
 
 
+function Sin(a, degree){
+    if (degree == 1)
+        a *= Math.PI/180
+    return Math.sin(a);
+} 
 
+function Cos(a, degree){
+    if (degree == 1)
+        a *= Math.PI/180
+    return Math.cos(a)
+} 
 
+function Tan(a, degree){
+    if (degree == 1)
+        a *= Math.PI/180
+    return Math.tan(a)
+} 
 
+function Asin(a, degree){
+    let x = Math.asin(a)
+    if (degree == 1) 
+        x *= Math.PI/180
+    return x
+} 
 
+function Acos(a, degree){
+    let x = Math.acos(a)
+    if (degree == 1) 
+        x *= Math.PI/180
+    return x
+}
+
+function Atan(a, degree){
+    let x = Math.atan(a)
+    if (degree == 1) 
+        x *= Math.PI/180
+    return x
+} 
+
+//-----------------------------------------------------------------------------------------------------------------
 
 
 // Function to evaluate a postfix expression
-function evaluatePostfix(postfix) {
+function evaluatePostfix(postfix, degree) {
     let stack = [];
     
     const operators = {
@@ -132,13 +168,13 @@ function evaluatePostfix(postfix) {
         '/': (a, b) => a / b,
         '^': (a, b) => Math.pow(a, b),
         'log': (a) => Math.log10(a),
-        'sin': (a) => Math.sin(a),
-        'cos': (a) => Math.cos(a),
-        'tan': (a) => Math.tan(a),
+        'sin': (a) => Sin(a, degree),
+        'cos': (a) => Cos(a, degree),
+        'tan': (a) => Tan(a, degree),
         'ln' : (a) => Math.log(a),
-        'arcsin': (a) => Math.asin(a),
-        'arccos': (a) => Math.acos(a),
-        'arctan': (a) => Math.atan(a),
+        'arcsin': (a) => Asin(a, degree),
+        'arccos': (a) => Acos(a, degree),
+        'arctan': (a) => Atan(a, degree),
         '√': (a) => Math.sqrt(a),
         'fac': (a) => Factorial(a)
        
@@ -154,7 +190,7 @@ function evaluatePostfix(postfix) {
         
         if (!isNaN(token)) {
             stack.push(parseFloat(token));
-            console.log(stack);
+          
         }
 
         else if (operators[token]) {
@@ -177,17 +213,12 @@ function evaluatePostfix(postfix) {
     return stack.pop();
 }
 
-function Evaluate(expression){
-    return evaluatePostfix(infixToPostfix(expression).trim());
+function Evaluate(expression, degree){
+    return evaluatePostfix(infixToPostfix(expression).trim(), degree);
 }
 
-// console.log(Evaluate("fac(5)"));
-// console.log(Math.asin(1));
-console.log(infixToPostfix("fac(5) + fac(6)"))
-// // console.log(Evaluate("fac(5) + 6"))
-// console.log(infixToPostfix("(1 + 2)*3"))
-// console.log(Evaluate("(1 + 2)*3"))
-// console.log(evaluatePostfix("5 fac 6 +"))
+
+
 
 
 

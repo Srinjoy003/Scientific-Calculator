@@ -65,10 +65,22 @@ h1 {
       color: #fff;
   }
   
+  .deg{
+    color: #70757a;
+  }
   
   
+  .prev-answer{
+    position: relative;
+    top: 30px;
+    text-align: right;
+    width: 36.8rem;
+    color: #70757a;
+    font-size: 13px;
+    font-family: Arial,   sans-serif;
+  }
   
-  
+
   /* ------------------- -------------------------------------------------*/
   
   
