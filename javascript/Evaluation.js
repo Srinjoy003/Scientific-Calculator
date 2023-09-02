@@ -23,14 +23,13 @@ function isOperator(ch) {
 
 // Function to check if the scanned string is a function
 function isFunction(str) {
-    return ['sin', 'cos', 'log', 'tan', 'arcsin', 'arccos', 'arctan', 'fac'].includes(str);
+    return ['sin', 'cos', 'log', 'tan', 'arcsin', 'arccos', 'arctan', 'fac', 'sqrt'].includes(str);
 }
 
 // Main function to convert infix expression to postfix expression
 function infixToPostfix(infix) {
     let postfix = '';
     let stack = [];
-    let currFunc = "";
     let posBracket = 0;
     let negBracket = 0;
     let FuncObj = {};
@@ -50,16 +49,19 @@ function infixToPostfix(infix) {
         }
 
         else if (isFunction(infix.substr(i, 6))) { // for arcsin
-            // stack.push(infix.substr(i, 6));
             FuncObj[(posBracket+1).toString()] = infix.substr(i, 6);
             i += 5; // Skip the function name
         }
         
         // If the scanned string is a function, push it onto the stack
         else if (isFunction(infix.substr(i, 3))) {
-            // stack.push(infix.substr(i, 3));
             FuncObj[(posBracket+1).toString()] = infix.substr(i, 3);
             i += 2; // Skip the function name
+        }
+
+        else if (isFunction(infix.substr(i, 4))) {
+            FuncObj[(posBracket+1).toString()] = infix.substr(i, 4);
+            i += 3; // Skip the function name
         }
 
        
@@ -149,13 +151,13 @@ function evaluatePostfix(postfix) {
         'arcsin': (a) => Math.asin(a),
         'arccos': (a) => Math.acos(a),
         'arctan': (a) => Math.atan(a),
-        '√': (a) => Math.sqrt(a),
+        'sqrt': (a) => Math.sqrt(a),
         'fac': (a) => Factorial(a)
        
         
     };
 
-    let func = ["log", "ln", "sin", "cos", "tan","√", "arcsin", "arcos", "arctan", "fac"];
+    let func = ["log", "ln", "sin", "cos", "tan", "sqrt", "arcsin", "arcos", "arctan", "fac"];
     
     const operands = postfix.split(' ');
     

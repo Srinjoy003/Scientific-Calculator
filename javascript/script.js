@@ -166,6 +166,8 @@ function OutputReplacement(outputStr){
     outputStr = outputStr.replace("π", pi);
     outputStr = outputStr.replace("e", e);
     outputStr = outputStr.replace(regex, 'fac($1)');
+    outputStr = outputStr.replace("√", "sqrt");
+
 
     return outputStr;
     
@@ -239,6 +241,10 @@ function main(e) {
 
     else if (btnStr == "xʸ")
         outputStr += "^";
+    
+    else if(btnStr == "10ˣ"|| btnStr == "eˣ")
+        outputStr += btnStr.substring(0, btnStr.length - 1) + "^";
+
 
 
     else if (btnStr == "(") {

@@ -17,3 +17,17 @@ num: "rgb(241,243,244)"
 
 
 change button colours to match new background
+
+
+
+
+
+
+insert([],_,I,[]):- I > 0.
+
+insert([H|L], E, I, R) :- I = 0,
+                          R is [E,H|L].
+
+insert([H|L], E, I, R) :- I is I-1,
+                          insert(L, E, I, R1),
+                          R is [H|R1].
