@@ -48,6 +48,7 @@ function Numbers(outputStr, btnStr) {
         let operations = ["!", ")", "π", "e", "%"];
 
 
+
         if (outputStr == "" || outputStr == "0")
             outputStr = btnStr;
 
@@ -55,7 +56,8 @@ function Numbers(outputStr, btnStr) {
             outputStr = outputSplit.join(" ") + btnStr;
         }
 
-        else if (operations.includes(outputStr[len-1])) {
+
+        else if (operations.includes(outputStr[len-1]) || outputStr.slice(len-3, len) == "Ans") {
             outputStr +=  " × " + btnStr;
 
         }
@@ -196,7 +198,7 @@ function OutputReplacement(outputStr){
     
 
     let numList = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-    let functions = ["log", "sin", "cos", "tan", "arcsin", "arccos", "arctan", "π", "e", "√"];
+    let functions = ["log", "sin", "cos", "tan", "arcsin", "arccos", "arctan", "π", "e", "√", "Ans"];
     let pi = Math.PI.toString();
     let e = Math.E.toString();
     const regex = /(\d+)!/g;
@@ -376,6 +378,8 @@ function main(e) {
     else if (btnStr == "Ans")
         outputStr = AnswerInput(outputStr);
 
+    
+
     else if (outputStr[len-1] != "E"){
     
         if (btnStr == "Ans")
@@ -391,10 +395,12 @@ function main(e) {
         else if(btnStr == "10ˣ"|| btnStr == "eˣ")
             outputStr += btnStr.substring(0, btnStr.length - 1) + "^";
 
-
         else
             outputStr = Numbers(outputStr, btnStr);
     }
+
+    else
+        outputStr = Numbers(outputStr, btnStr);
 
     if (deleteBtn.innerHTML == "AC" && btnStr != "=")
         deleteBtn.innerHTML = "CE";

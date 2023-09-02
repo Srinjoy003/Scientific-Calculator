@@ -122,7 +122,7 @@ h1 {
       border: none;
       outline: none;
       box-shadow: 0px 5px 3px #ffffff6d, 0px -5px 3px #30303059;
-      transform:scale(.3)
+      transform:scale(.25)
     }
     
     .label::after {
@@ -342,4 +342,5 @@ h1 {
         opacity: 1;
       }
     }
+    
     
