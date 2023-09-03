@@ -38,3 +38,8 @@ insert([H|L], E, I, R) :- I is I-1,
 
 //make functions for exponential operators
 //9E = 9
+
+
+func hover :- dark = #70757a;
+button hover :-       #424548;
+

@@ -154,6 +154,10 @@ function Atan(a, degree){
     return x
 } 
 
+const round = (n, dp) => {
+    const h = +('1'.padEnd(dp + 1, '0')) // 10 or 100 or 1000 or etc
+    return Math.round(n * h) / h
+  }
 //-----------------------------------------------------------------------------------------------------------------
 
 
@@ -203,20 +207,22 @@ function evaluatePostfix(postfix, degree) {
                 const operand1 = stack.pop();
                 stack.push(operators[token](operand1, operand2));
             }
-            // console.log(stack);
+           
 
         }
 
         
     }
-    
-    return stack.pop();
+
+    let ans = stack.pop();
+    ans = round(parseFloat(ans), 11).toString();
+
+    return ans;
 }
 
 function Evaluate(expression, degree){
     return evaluatePostfix(infixToPostfix(expression).trim(), degree);
 }
-
 
 
 
