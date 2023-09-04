@@ -43,3 +43,269 @@ insert([H|L], E, I, R) :- I is I-1,
 func hover :- dark = #70757a;
 button hover :-       #424548;
 
+
+------------------------
+
+HTML
+
+        <div class="cal2">
+            <h6 class="prev-answer"></h6>
+            <input readonly id="input-mobile" class="input-box" type="input" placeholder="0">
+            
+            <div class="cal-mobile-main">
+                <div class="cal-row">
+                
+                    <button class="operator">(</button>
+                    <button class="operator">)</button>
+                    <button class="operator">%</button>
+                    <button class="operator" id="del">CE</button>
+                </div>
+                <div class="cal-row">
+                    <button class="num">7</button>
+                    <button class="num">8</button>
+                    <button class="num">9</button>
+                    <button class="operator">÷</button>
+                </div>
+                <div class="cal-row">
+                
+                    <button class="num">4</button>
+                    <button class="num">5</button>
+                    <button class="num">6</button>
+                    <button class="operator">×</button>
+                </div>
+                <div class="cal-row">
+                    <button class="num">1</button>
+                    <button class="num">2</button>
+                    <button class="num">3</button>
+                    <button class="operator">-</button>
+                </div>
+                <div class="cal-row">
+                    <button class="num">0</button>
+                    <button class="num">.</button>
+                    <button class="button-blue">=</button>
+                    <button class="operator">+</button>
+                </div>
+            </div>
+
+            <div class="cal-mobile-btn">
+                <button id="mobile-num">123</button>
+                <button id="mobile-func">Fx</button>
+            </div>
+
+
+            <div class="cal-mobile-func">
+                <div class="cal-row">
+                    <button class="operator rad">Rad</button>
+                    <button class="operator deg">Deg</button>
+                    <button class="operator">x!</button>
+                    <button class="operator">Inv</button>
+                </div>
+                <div class="cal-row">
+                    <button class="operator inv">sin</button>
+                    <button class="operator inv">ln</button>
+                    <button class="operator">π</button>
+                    <button class="operator inv">cos</button>
+                </div>
+                <div class="cal-row">
+                    <button class="operator inv">log</button>
+                    <button class="operator">e</button>
+                    <button class="operator inv">tan</button>
+                    <button class="operator inv">√</button>
+                </div>
+                <div class="cal-row">
+                    <button class="operator">Ans</button>
+                    <button class="operator">EXP</button>
+                    <button class="operator">xʸ</button>
+                    <button class="button-blue">=</button>
+                </div>
+            </div>
+        </div>
+
+    
+CSS
+
+.cal2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease;
+  /* transform: scale(1.2); */
+
+}
+
+#input-mobile{
+  width: 335px;
+}
+
+.cal-mobile-btn{
+  width: 345.6px;
+  position: absolute;
+  bottom: 120px;
+  
+}
+
+.cal-mobile-func{
+  display: none;
+}
+
+
+JAVASCRIPT
+
+let mobileNumDiv = document.getElementsByClassName("cal-mobile-main")[0];
+let mobileFuncDiv = document.getElementsByClassName("cal-mobile-func")[0];
+let mobileNumBtn = document.getElementById("mobile-num");
+let mobileFuncBtn = document.getElementById("mobile-func");
+
+
+function MobileBtnSwap(e){
+    if(e.target.innerHTML == "123"){
+        // mobileFuncDiv.style.display = "none";
+        // mobileNumDiv.style.display = "block";
+
+        mobileFuncDiv.style.display = "none";
+        mobileNumDiv.style.display = "block";
+
+    }
+
+    else if(e.target.innerHTML == "Fx"){
+        // mobileNumDiv.style.display = "none";
+        // mobileFuncDiv.style.display = "block";
+
+        mobileNumDiv.style.display = "none";
+        mobileFuncDiv.style.display = "block";
+    }
+
+}
+
+mobileNumBtn.addEventListener("click", MobileBtnSwap);
+mobileFuncBtn.addEventListener("click", MobileBtnSwap);
+
+-------------------------------------------------------------------------
+
+HTML
+
+<div class="cal2">
+            <h6 class="prev-answer"></h6>
+            <input readonly id="input-mobile" class="input-box" type="input" placeholder="0">
+            
+            <div class="cal-mobile-main">
+                <div class="cal-row">
+                
+                    <button class="operator">(</button>
+                    <button class="operator">)</button>
+                    <button class="operator">%</button>
+                    <button class="operator" id="del">CE</button>
+                </div>
+                <div class="cal-row">
+                    <button class="num">7</button>
+                    <button class="num">8</button>
+                    <button class="num">9</button>
+                    <button class="operator">÷</button>
+                </div>
+                <div class="cal-row">
+                
+                    <button class="num">4</button>
+                    <button class="num">5</button>
+                    <button class="num">6</button>
+                    <button class="operator">×</button>
+                </div>
+                <div class="cal-row">
+                    <button class="num">1</button>
+                    <button class="num">2</button>
+                    <button class="num">3</button>
+                    <button class="operator">-</button>
+                </div>
+                <div class="cal-row">
+                    <button class="num">0</button>
+                    <button class="num">.</button>
+                    <button class="button-blue">=</button>
+                    <button class="operator">+</button>
+                </div>
+            </div>
+
+            <div class="cal-mobile-btn">
+                <button id="mobile-num">123</button>
+                <button id="mobile-func">Fx</button>
+            </div>
+
+
+            <div class="cal-mobile-func">
+                <div class="cal-row">
+                    <button class="operator rad">Rad</button>
+                    <button class="operator deg">Deg</button>
+                    <button class="operator">x!</button>
+                    <button class="operator">Inv</button>
+                </div>
+                <div class="cal-row">
+                    <button class="operator inv">sin</button>
+                    <button class="operator inv">ln</button>
+                    <button class="operator">π</button>
+                    <button class="operator inv">cos</button>
+                </div>
+                <div class="cal-row">
+                    <button class="operator inv">log</button>
+                    <button class="operator">e</button>
+                    <button class="operator inv">tan</button>
+                    <button class="operator inv">√</button>
+                </div>
+                <div class="cal-row">
+                    <button class="operator">Ans</button>
+                    <button class="operator">EXP</button>
+                    <button class="operator">xʸ</button>
+                    <button class="button-blue">=</button>
+                </div>
+            </div>
+        </div>
+
+CSS
+
+.cal2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease;
+  transform: scale(1);
+  /* transform: scale(1.2); */
+
+}
+
+.cal-mobile-main {
+  transform: translateX(0);
+  transition: transform 0.3s ease;
+}
+
+.cal-mobile-func {
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  transform: translateX(0);
+  /* display: none; */
+}
+
+.show-mobile-main .cal-mobile-main {
+  transform: translateX(0);
+}
+
+.show-mobile-func .cal-mobile-func {
+  transform: translateX(0);
+}
+
+JAVASCRIPT
+
+let mobileNumDiv = document.getElementsByClassName("cal-mobile-main")[0];
+let mobileFuncDiv = document.getElementsByClassName("cal-mobile-func")[0];
+let mobileNumBtn = document.getElementById("mobile-num");
+let mobileFuncBtn = document.getElementById("mobile-func");
+
+
+function MobileBtnSwap(e) {
+    if (e.target.innerHTML == "123") {
+      mobileFuncDiv.classList.remove("show-mobile-func");
+      mobileNumDiv.classList.add("show-mobile-main");
+    } else if (e.target.innerHTML == "Fx") {
+      mobileNumDiv.classList.remove("show-mobile-main");
+      mobileFuncDiv.classList.add("show-mobile-func");
+    }
+  }
+
+mobileNumBtn.addEventListener("click", MobileBtnSwap);
+mobileFuncBtn.addEventListener("click", MobileBtnSwap);

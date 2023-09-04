@@ -2,12 +2,26 @@ import {Evaluate} from "./Evaluation.js";
 
 let buttonObj = document.getElementsByTagName("button");
 let outputBar = document.getElementsByTagName("input")[0];
+let outputBar2 = document.getElementsByTagName("input")[1];
 let buttonList = Array.from(buttonObj).filter(button => !button.classList.contains("view"));
 let deleteBtn = document.getElementById("del");
+let deleteBtn2 = document.getElementById("del2");
+
 let checkBox = document.getElementById("checkbox");
+
 let degreeBtn = document.getElementsByClassName("deg")[0];
+let degreeBtn2 = document.getElementsByClassName("deg")[1];
+
 let radianBtn = document.getElementsByClassName("rad")[0];
-let prevAnsTag = document.getElementsByClassName("prev-answer")[0]
+let radianBtn2 = document.getElementsByClassName("rad")[1];
+
+let prevAnsTag = document.getElementsByClassName("prev-answer")[0];
+let prevAnsTag2 = document.getElementsByClassName("prev-answer")[1];
+
+
+
+
+
 
 let darkAngleText = "rgb(154,160,166)";
 let lightAngleText = "rgb(112,117,122)";
@@ -135,11 +149,18 @@ function RadianColours(){
     if(checkBox.checked){
         degreeBtn.style.color = darkAngleText ;
         radianBtn.style.color = dark_text ;
+
+        degreeBtn2.style.color = darkAngleText ;
+        radianBtn2.style.color = dark_text ;
     }
+    
 
     else{
         degreeBtn.style.color = lightAngleText;
         radianBtn.style.color = light_text ;
+    
+        degreeBtn2.style.color = lightAngleText;
+        radianBtn2.style.color = light_text ;
     }
 }
 
@@ -150,11 +171,17 @@ function DegreeColours(){
     if(checkBox.checked){
         radianBtn.style.color = darkAngleText ;
         degreeBtn.style.color = dark_text ;
+
+        radianBtn2.style.color = darkAngleText ;
+        degreeBtn2.style.color = dark_text ;
     }
 
     else{
         radianBtn.style.color = lightAngleText;
         degreeBtn.style.color = light_text ;
+
+        radianBtn2.style.color = lightAngleText;
+        degreeBtn2.style.color = light_text;
     }
 }
 
@@ -249,6 +276,8 @@ function AnswerInput(outputStr){
         outputStr += "Ans";
 
     prevAnsTag.innerHTML = "Ans = " + prevAns;
+    prevAnsTag2.innerHTML = "Ans = " + prevAns;
+
     
 
     return outputStr;
@@ -273,6 +302,8 @@ function Calculate(outputStr) {
         return 0;
 
     prevAnsTag.innerHTML = outputStr + " =";
+    prevAnsTag2.innerHTML = outputStr + " =";
+
 
     outputStr = OutputReplacement(outputStr);
 
@@ -316,9 +347,13 @@ function main(e) {
 
         if(digitPattern.test(btnStr) || functions.includes(btnStr) || btnStr == "Ans"){
             prevAnsTag.innerHTML = "Ans = " + outputStr;
+            prevAnsTag2.innerHTML = "Ans = " + outputStr;
+
             outputStr = "";
         }
     }
+
+        
         
     if (errorList.includes(outputStr))
         outputStr = "";
@@ -328,6 +363,8 @@ function main(e) {
 
     else if (btnStr == "AC"){
         deleteBtn.innerHTML = "CE";
+        deleteBtn2.innerHTML = "CE";
+
         outputStr = ""
     }
 
@@ -345,6 +382,7 @@ function main(e) {
 
     else if (btnStr == "="){
         deleteBtn.innerHTML = "AC";
+        deleteBtn2.innerHTML = "AC";
         outputStr = Calculate(outputStr);
     }
 
@@ -378,6 +416,8 @@ function main(e) {
     else if (btnStr == "Ans")
         outputStr = AnswerInput(outputStr);
 
+    else if(btnStr == "123" || btnStr == "Fx")
+        outputStr += "";
     
 
     else if (outputStr[len-1] != "E"){
@@ -407,6 +447,8 @@ function main(e) {
 
 
     outputBar.value = outputStr;
+    outputBar2.value = outputStr;
+
 }
 
 
@@ -447,8 +489,14 @@ function LightDarkMode(e){
         outputBar.style.backgroundColor = dark_background;
         outputBar.style.color = dark_text;
         outputBar.style.borderColor = light_background;
+        outputBar2.style.backgroundColor = dark_background;
+        outputBar2.style.color = dark_text;
+        outputBar2.style.borderColor = light_background;
+
 
         prevAnsTag.style.color = dark_prev_text; 
+        prevAnsTag2.style.color = dark_prev_text; 
+
 
 
         numberList.forEach((btn) => {
@@ -465,10 +513,16 @@ function LightDarkMode(e){
         if (degree == 0){
             degreeBtn.style.color = darkAngleText;
             radianBtn.style.color = dark_text ;
+
+            degreeBtn2.style.color = darkAngleText;
+            radianBtn2.style.color = dark_text ;
         }
         else{
             radianBtn.style.color = darkAngleText;
             degreeBtn.style.color = dark_text ;
+
+            radianBtn2.style.color = darkAngleText;
+            degreeBtn2.style.color = dark_text ;
         }
     }
 
@@ -480,8 +534,13 @@ function LightDarkMode(e){
         outputBar.style.backgroundColor = light_background;
         outputBar.style.color = black;
         outputBar.style.borderColor = dark_border;
+        outputBar2.style.backgroundColor = light_background;
+        outputBar2.style.color = black;
+        outputBar2.style.borderColor = dark_border;
 
-        prevAnsTag.style.color = light_prev_text; 
+        prevAnsTag.style.color = light_prev_text;
+        prevAnsTag2.style.color = light_prev_text; 
+
 
 
 
@@ -500,10 +559,16 @@ function LightDarkMode(e){
         if (degree == 0){
             degreeBtn.style.color = lightAngleText;
             radianBtn.style.color = light_text ;
+
+            degreeBtn2.style.color = lightAngleText;
+            radianBtn2.style.color = light_text ;
         }
         else{
             radianBtn.style.color = lightAngleText;
             degreeBtn.style.color = light_text ;
+
+            radianBtn2.style.color = lightAngleText;
+            degreeBtn2.style.color = light_text ;
         }
         
 
@@ -516,4 +581,27 @@ function LightDarkMode(e){
 checkBox.addEventListener("change", LightDarkMode);
 
 
+//-------------------------------------------------------------------------------------------------------------
+
+let mobileNumDiv = document.getElementsByClassName("cal-mobile-main")[0];
+let mobileFuncDiv = document.getElementsByClassName("cal-mobile-func")[0];
+let mobileNumBtn = document.getElementById("mobile-num");
+let mobileFuncBtn = document.getElementById("mobile-func");
+
+
+
+function MobileBtnSwap(e) {
+    if (e.target.innerHTML == "123") {
+      mobileFuncDiv.style.transform = "translate(110%, -125%)";
+      mobileNumDiv.style.transform = "translateX(0)";
+    } 
+    
+    else if (e.target.innerHTML == "Fx") {
+      mobileNumDiv.style.transform = "translateX(-110%)";
+      mobileFuncDiv.style.transform = "translate(0, -125%)";
+    }
+}
+
+mobileNumBtn.addEventListener("click", MobileBtnSwap);
+mobileFuncBtn.addEventListener("click", MobileBtnSwap);
 
