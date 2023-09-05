@@ -20,9 +20,6 @@ let prevAnsTag2 = document.getElementsByClassName("prev-answer")[1];
 
 
 
-
-
-
 let darkAngleText = "rgb(154,160,166)";
 let lightAngleText = "rgb(112,117,122)";
 let dark_text = "rgb(232,234,237)";
