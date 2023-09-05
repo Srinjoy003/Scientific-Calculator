@@ -476,6 +476,19 @@ let dark_border = "rgb(225, 218, 218)";
 let dark_prev_text = "rgb(150,155,161)";
 let light_prev_text = "rgb(112,117,122)";
 
+let mobileNumDiv = document.getElementsByClassName("cal-mobile-main")[0];
+let mobileFuncDiv = document.getElementsByClassName("cal-mobile-func")[0];
+let mobileNumBtn = document.getElementById("mobile-num");
+let mobileFuncBtn = document.getElementById("mobile-func");
+
+let borderSelected = "rgb(66, 133, 244)";
+let borderUnselected = "rgb(225, 218, 218)"
+let backgroundSelected = "rgba(57, 143, 230, 0.31)"
+let white = "rgb(255,255,255)";
+
+let mobileToggle = 0;
+
+
 
 
 
@@ -497,11 +510,12 @@ function LightDarkMode(e){
         prevAnsTag.style.color = dark_prev_text; 
         prevAnsTag2.style.color = dark_prev_text; 
 
-
-
+       
         numberList.forEach((btn) => {
             btn.style.backgroundColor = dark_num;
-            btn.style.color = dark_text
+            btn.style.color = dark_text;
+
+        
 
         })
 
@@ -523,6 +537,21 @@ function LightDarkMode(e){
 
             radianBtn2.style.color = darkAngleText;
             degreeBtn2.style.color = dark_text ;
+        }
+
+
+        if (mobileToggle == 0){
+            mobileFuncBtn.style.backgroundColor = dark_background;
+            mobileFuncBtn.style.color = dark_text;
+            mobileNumBtn.style.color = dark_text;
+
+        }
+
+        else{
+            mobileNumBtn.style.backgroundColor = dark_background;
+            mobileFuncBtn.style.color = dark_text;
+            mobileNumBtn.style.color = dark_text;
+
         }
     }
 
@@ -563,6 +592,7 @@ function LightDarkMode(e){
             degreeBtn2.style.color = lightAngleText;
             radianBtn2.style.color = light_text ;
         }
+
         else{
             radianBtn.style.color = lightAngleText;
             degreeBtn.style.color = light_text ;
@@ -570,6 +600,21 @@ function LightDarkMode(e){
             radianBtn2.style.color = lightAngleText;
             degreeBtn2.style.color = light_text ;
         }
+
+        mobileFuncBtn.style.color = light_text;
+        mobileNumBtn.style.color = light_text;
+
+
+
+        if(mobileToggle == 0){ 
+            mobileFuncBtn.style.backgroundColor = light_background;
+        }  
+
+        else{
+            mobileNumBtn.style.backgroundColor = light_background;
+        }
+
+      
         
 
 
@@ -583,23 +628,42 @@ checkBox.addEventListener("change", LightDarkMode);
 
 //-------------------------------------------------------------------------------------------------------------
 
-let mobileNumDiv = document.getElementsByClassName("cal-mobile-main")[0];
-let mobileFuncDiv = document.getElementsByClassName("cal-mobile-func")[0];
-let mobileNumBtn = document.getElementById("mobile-num");
-let mobileFuncBtn = document.getElementById("mobile-func");
-
 
 
 function MobileBtnSwap(e) {
-    if (e.target.innerHTML == "123") {
-      mobileFuncDiv.style.transform = "translate(110%, -125%)";
-      mobileNumDiv.style.transform = "translateX(0)";
+    if (e.target.innerHTML == "123" && mobileToggle == 1) {
+        mobileFuncDiv.style.transform = "translate(110%, -125%)";
+        mobileNumDiv.style.transform = "translateX(0)";
+
+        mobileNumBtn.style.borderColor = borderSelected;
+        mobileFuncBtn.style.borderColor = borderUnselected;
+        mobileNumBtn.style.backgroundColor = backgroundSelected;
+
+        if(checkBox.checked)//darkmode
+            mobileFuncBtn.style.backgroundColor = dark_background;
+
+        else //lightmode
+            mobileFuncBtn.style.backgroundColor = white;
+         
+        
+
     } 
     
-    else if (e.target.innerHTML == "Fx") {
-      mobileNumDiv.style.transform = "translateX(-110%)";
-      mobileFuncDiv.style.transform = "translate(0, -125%)";
+    else if (e.target.innerHTML == "Fx" && mobileToggle == 0) {
+        mobileNumDiv.style.transform = "translateX(-110%)";
+        mobileFuncDiv.style.transform = "translate(0, -125%)";
+
+        mobileNumBtn.style.borderColor = borderUnselected;
+        mobileFuncBtn.style.borderColor = borderSelected;
+        mobileFuncBtn.style.backgroundColor = backgroundSelected;
+
+        if(checkBox.checked)//darkmode
+            mobileNumBtn.style.backgroundColor = dark_background;
+
+        else //lightmode
+            mobileNumBtn.style.backgroundColor = white;
     }
+    mobileToggle = !mobileToggle;
 }
 
 mobileNumBtn.addEventListener("click", MobileBtnSwap);

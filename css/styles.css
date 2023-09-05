@@ -1,11 +1,10 @@
+
+
 h1 {
   text-align: center;
-  margin-top: 9rem;
-  margin-bottom: 6rem;
-
-
-  /* margin-top: 9rem; */
-  /* margin-bottom: 6rem; */
+  margin-top: 10rem;
+  margin-bottom: 5rem;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 36px;
 }
 
@@ -31,7 +30,20 @@ h1 {
 
 .outer-cal {
   width: 100vw;
-  min-height: 100vh;
+  height: 100%;
+  overflow: hidden;
+
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  overflow: hidden;
+}
+
+html{
+  height: 100%;
 }
 
 .input-box {
@@ -67,7 +79,7 @@ button {
 }
 
 .button-blue {
-  background-color: #4285f4;
+  background-color: rgb(66, 133, 244);
   color: #fff;
   font-size: 1rem;
 
@@ -98,12 +110,14 @@ button {
   font-family: Arial, sans-serif;
 }
 
+/*-------------------------------------------------------------------------------------------*/
+
 .cal2 {
   display: none;
   flex-direction: column;
   align-items: center;
   transition: transform 0.3s ease;
-  transform: scale(1.1, 1.2);
+  transform: scale(1.05, 1.2);
   
 
 }
@@ -112,9 +126,11 @@ button {
   display: none;
   width: 345.6px;
   position: absolute;
-  bottom: 120px;
-  left: 38px;
+  top: 650px;
+  left: 128px;
   transform: scale(1.2);
+  /* left: 100px;
+  transform: scale(1.7); */
 
 }
 
@@ -129,6 +145,33 @@ button {
 
 }
 
+.input-margin{
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
+
+}
+
+
+
+.mobile-num-btn{
+  background-color: rgba(57, 143, 230, 0.31);
+  border-style: solid;
+  border-width: 1.5px 0px 1.5px 1.5px;
+  border-color:  rgb(66, 133, 244);
+  border-radius: 20px 0px 0px 20px;
+  margin-right: 0px;
+}
+
+.mobile-func-btn{
+  background-color: rgb(255, 255, 255);
+  border-style: solid;
+  border-width: 1.5px 1.5px 1.5px 0px;
+  border-color: rgb(225, 218, 218);
+  border-radius: 0px 20px 20px 0px;
+  margin-left: 0px;
+
+
+}
 
 
 
@@ -142,17 +185,10 @@ button {
   padding: 0;
   transition: 0.5s;
   overflow: hidden;
+  
 }
 
-body {
-  display: flex;
-  /* width: 100vw;
-      height: 100vh; */
-  /* overflow: hidden; */
-  /* align-items: center; */
-  justify-content: center;
-  /* background: #d7deea; */
-}
+
 
 
 
@@ -410,6 +446,13 @@ body {
 
 @media only screen and (max-width: 768px) {
   /* Mobile-specific styles */
+
+  h1{
+    margin-top: 10rem;
+    margin-bottom: 6rem;
+    font-size: 24px;
+  }
+
   .cal1{
     display: none;
   }
@@ -419,10 +462,17 @@ body {
   }
 
   .cal-mobile-btn{
-    display: inline-block;
+    display: flex;
   }
 
   .prev-answer{
     width: 335px;
+    transform: translateY(29px);
+  }
+
+  .label{
+    top: -1.5rem;
+    right: -5rem;
+    transform: scale(.2);
   }
 }
