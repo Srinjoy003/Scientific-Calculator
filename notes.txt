@@ -1,0 +1,45 @@
+change ac to ce
+convertion to e
+organise factorial or log part of evaluate function
+fix CE
+
+for operators:
+    change func, operatorlist ==> evaluationjs
+    numberOperator = number * operator
+    
+bar: #bdc1c6     "rgb(189,193,198)"
+func: #5f6368    "rgb(95,99,104)"
+number: #3c4043  "rgb(60, 64, 67)"
+text: "rgb(232,234,237)"
+
+light mode:
+num: "rgb(241,243,244)"
+
+
+change button colours to match new background
+
+
+
+
+
+
+insert([],_,I,[]):- I > 0.
+
+insert([H|L], E, I, R) :- I = 0,
+                          R is [E,H|L].
+
+insert([H|L], E, I, R) :- I is I-1,
+                          insert(L, E, I, R1),
+                          R is [H|R1].
+
+
+#9aa0a6 -> "rgb(154,160,166)" -> darkmode
+#70757a -> "rgb(112,117,122)" -> lightmode
+
+//make functions for exponential operators
+//9E = 9
+
+
+func hover :- dark = #70757a;
+button hover :-       #424548;
+

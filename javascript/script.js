@@ -298,16 +298,18 @@ function Calculate(outputStr) {
     if (outputStr == "")
         return 0;
 
+    while (bracketCount > 0){
+        outputStr += ')';
+        bracketCount--;
+    }
+
     prevAnsTag.innerHTML = outputStr + " =";
     prevAnsTag2.innerHTML = outputStr + " =";
 
 
     outputStr = OutputReplacement(outputStr);
 
-    while (bracketCount > 0){
-        outputStr += ')';
-        bracketCount--;
-    }
+    
 
     try {
         outputStr = Evaluate(outputStr, degree);
