@@ -52,7 +52,6 @@ function infixToPostfix(infix) {
         
         // If the scanned string is a function, push it onto the stack
         else if (isFunction(infix.substr(i, i+3))) {
-            console.log("hello")
             stack.push(infix.substr(i, i+3));
             i += 2; // Skip the function name
         }
